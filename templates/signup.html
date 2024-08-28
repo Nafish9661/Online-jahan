@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock title %}
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensure padding is included in the width */
+        text-align: left; /* Center the text within the input */
+    }
+
+    .form-group input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .form-group input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .login-text {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+        <script>
+            Swal.fire('{{ message }}');
+        </script>
+        {% endfor %}
+    </div>
+    {% endif %}
+<div class="container">
+    <h2>Sign Up</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input type="text" id="mobile" name="mobile" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        {% comment %} <div class="form-group">
+            <label for="state">State</label>
+            <input type="state" id="state" name="state" required>
+        </div> {% endcomment %}
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="pass1" required>
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="pass2" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Sign Up">
+        </div>
+    </form>
+    <div class="login-text">Already have an account? <a href="#">Login</a></div>
+</div>
+
+</body>
+</html>
+{% endblock body %}
+

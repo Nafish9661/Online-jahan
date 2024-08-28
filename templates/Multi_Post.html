@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block title %}{{ incen.Post_Name }}{% endblock title %}
+{% block body %}
+<style>
+    /* General styles */
+    .main {
+        justify-content: center;
+        margin-top: 30px;
+        margin-left: 80px;
+        margin-right: 80px;
+    }
+
+    .title {
+        color: red;
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .post {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .qp {
+        margin-top: 30px;
+        margin-left: 30px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* Popup styles */
+     /* Popup styles */
+     .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+
+    .PT {
+        text-align: center;
+        color: red;
+        margin-bottom: 15px;
+    }
+
+    /* Form styles */
+    .form {
+        margin-top: 10px;
+    }
+
+    .form input[type="text"],
+    .form input[type="tel"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .OF {
+        width: 100%;
+        padding: 15px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+
+    .form button[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+    
+
+    .form button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="main">
+    <div>
+        <h4 class="title">Name of Form</h4>
+        <div class="post">{{ incen.Post_Name }}</div>
+    </div>
+    <div>
+        <h4 class="title">Date of Publish/Update</h4>
+        <div class="post">{{ incen.Post_Date }}</div>
+    </div>
+    <div>
+        <h4 class="title">Short Info About Form</h4>
+        <div class="post">{{ incen.Short_Info }}</div>
+    </div>
+</div>
+
+<div class="main">{{ incen.Discription | safe }}</div>
+
+<!-- Button to open the popup -->
+<div class="main">
+    <button class="OF" onclick="togglePopup()">Click Here To Hire Us To Apply </button>
+
+    <!-- Popup container -->
+    <div id="popup" class="popup">
+        <span class="close-btn" onclick="closePopup()">X</span>
+        <h2 class="PT">Hire an Expert to Apply</h2>
+        <h2>"{{ incen.Post_Title }}"</h2>
+
+        <form class="form" method="post">
+            {% csrf_token %}
+
+            <input type="text" placeholder="Name" name="name" required><br>
+            <input type="tel" placeholder="Mobile No." name="mobile" required><br>
+            <input type="text" placeholder="State" name="State"><br>
+            <input type="text" placeholder="District" name="District"><br>
+            
+                
+
+            <button type="submit">Submit</button>
+        </form>
+        <p id="formStatus"></p>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire('{{ message }}');
+        </script>
+    {% endfor %}
+{% endif %}
+
+<script>
+    // Function to toggle the visibility of the popup and overlay
+    function togglePopup() {
+        var popup = document.getElementById('popup');
+        var overlay = document.getElementById('overlay');
+        if (popup.style.display === 'block') {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        } else {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+    }
+
+    // Function to close the popup and overlay
+    function closePopup() {
+        var popup = document.getElementById('popup');
+        var overlay = document.getElementById('overlay');
+        popup.style.display = 'none';
+        overlay.style.display = 'none';
+    }
+</script>
+
+{% endblock body %}

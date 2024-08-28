@@ -1,0 +1,56 @@
+{% extends "Admin_Base.html" %}
+{% block title %}Admin Dashboard{% endblock title %}
+{% block body %}
+
+<div class="cards">
+    <a href="{%url 'dashboard' %}" class="card">
+        <div>
+            <h1>{{ application_count }}</h1>
+            <h3>New</h3>
+        </div>
+    </a>
+<a href={%url 'Process_Application' %} class="card">
+        <div>
+            <h1>{{ process_count }}</h1>
+            <h3>In Process</h3>
+        </div>
+    </a>
+    <a href="{%url 'Complete' %}" class="card">
+        <div>
+            <h1>{{ completed_count }}</h1>
+            <h3>Finalized</h3>
+        </div>
+    </a>
+</div>
+
+<div class="content-2">
+    <div class="recent-payments">
+        <div class="title">
+            <h2>Recent Applications</h2>
+            <a href="{% url 'All_Applications'%}" class="btn">View All</a>
+        </div>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Target Form</th>
+                <th>Status</th>
+                <th>District</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            {% for application in applications %}
+            <tr>
+                <td>{{ application.id }}</td>
+                <td>{{ application.Applicant_Name }}</td>
+                <td>{{ application.Mobile }}</td>
+                <td><a href="{{ application.Target_Url }}" target="_blank">Form Url</a></td>
+                <td> <span class='badge-payment'>Accepted</span></td>
+                <td>{{ application.District }}</td>
+                <td>{{ application.Created_At }}</td>
+                <td><a href="{% url 'userdata' application.id %}" class="btn">View</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+{% endblock body %}

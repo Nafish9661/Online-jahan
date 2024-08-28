@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% block title %}Welcome To Onlne Jahan{% endblock title %}
+{% block body %}
+
+<style>
+    body {
+        min-width: 1024px; /* Ensure the minimum width is set to a typical desktop screen size */
+        overflow-x: auto; /* Allow horizontal scrolling if necessary */
+    }
+    #Nfs {
+        margin-left: 10px;
+    }
+
+    #Nfs {
+        color: rgb(15, 15, 15);
+        font-size: larger;
+        margin-left: 90%;
+    }
+
+    #note {
+        color: rgb(13, 14, 13);
+        /* border: 2px solid black; */
+        /* border-radius: 1%; */
+    }
+
+    .container_index {
+        margin: auto;
+        margin-top: 20px;
+        max-width: 1200px; /* Adjust max-width as needed */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; 
+    }
+    
+
+    .item {
+        background-color: rgb(255, 255, 255);
+        border: 2px solid rgb(7, 215, 11);
+        margin: 10px;
+        padding: 2px;
+        width: 400px;
+        border-radius: 5px;
+        text-align: top;
+    }
+
+    .name {
+        color: rgb(10, 9, 9);
+        margin-top: 2px;
+        background-color: #98eb9b;
+        border: 2px solid rgb(229, 255, 0);
+        border-radius: 10px;
+    }
+
+    .more {
+        margin-left: 75%;
+        font-weight: 700;
+    }
+
+    .mark {
+        /* margin-top: 3px; */
+        color: rgb(152, 243, 48);
+        font-style: normal;
+        font-size: large;
+        background: #0e0d0d;
+    }
+
+    #nmbr {
+        float: right;
+        text-transform: capitalize;
+        margin-top: -20px;
+        color: aliceblue;
+        background-color: rgb(248, 206, 151);
+        color: rgb(27, 14, 14);
+        border: 3px solid yellow;
+        border-radius: 10px;
+        font-size: large;
+
+    }
+    /* @media screen and (max-width: 768px) {
+    .more {
+        margin-left: 65%;
+        font-weight: 700;
+    }
+} */
+.square_index {
+            /* Add this */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Allow squares to wrap */
+            text-align: center; /* Center text horizontally */
+        }
+
+        .color-square {
+            /* Adjust size as needed */
+            width: 120px;
+            height: 50px;
+            border-radius: 3px;
+            color: rgb(19, 3, 3);
+            background-color: #98eb9b;
+            border: 3px solid #edf100;
+            text-align: center;
+            line-height: 20px; /* Center text vertically */
+            margin: 10px; /* Add margin to separate squares */
+        }
+
+        .color-square a {
+            text-decoration: none; /* Remove text decoration */
+            font-family: 'Courier New', Courier, monospace;
+        }
+    .color-square:hover{
+        background-color: rgb(111, 247, 238);
+        
+    }
+    </style>
+</head>
+<body>
+    <div class="square_index">
+        <a href="{% url 'Rtps'%}"><button class="color-square square-1"><img src="" alt="">RTPS Services</button></a>
+        <a href="{% url 'Mutation'%}"><button class="color-square square-2">Mutation/Lagaan</button></a>
+        <a href="{% url 'Scholarship'%}"><button class="color-square square-3">Scholarships</button></a>
+        <a href="{% url 'Anudan'%}"><button class="color-square square-4">Anudan</button></a>
+        <a href="{% url 'Passport'%}"><button class="color-square square-5">Passport/DL</button></a>
+        <a href="{% url 'Farmer'%}"><button class="color-square square-6">Farmers Panel</button></a>
+    </div>
+</body>
+
+    <table>
+        <tr>
+
+    <div class="container_index">
+        <div class="item" id="item-1">
+            <h2 class="name">* Govt Schemes</h2>
+            {%for BrScheme in khal%}
+            <ul>
+                <li><a href="/govtscheme/{{BrScheme.slug}}">{{BrScheme}}</a></li>
+            </ul>
+
+            {%endfor%}
+            <a class="more" href="{% url 'govtshceme'%}" target="_blank">View More</a>
+        </div>
+        <div class="item" id="item-2">
+            <h2 class="name">* Latest Jobs</h2>
+
+            {% for Latest_job in job%}
+            <ul>
+                <li><a href="/job/{{Latest_job.slug}}">{{Latest_job}}</a> </li>
+            </ul>
+            {% endfor %}
+            <ul>
+                <a class="more" href="{% url 'Latest_Job_More'%}" target="_blank">View More</a>
+
+        </div>
+        <div class="item" id="item-3">
+            <h2 class="name">* Admissions</h2>
+            {% for Addmision in Add%}
+            <ul>
+
+                <li><a href="/admit/{{Addmision.slug}}">{{Addmision}}</a></li>
+            </ul>
+            {%endfor%}
+            <ul>
+                <a class="more" href="{% url 'Admit_More'%}" target="_blank">View More</a>
+
+        </div>
+        <div class="item" id="item-4">
+            <h2 class="name">* Admit Cards</h2>
+            {%for i in sidh%}
+            <ul>
+                <li><a href="/admitcard/{{i.slug}}">{{i}}</a></li>
+            </ul>
+            {%endfor%}
+            <a class="more" href="{% url 'admitcard'%}" target="_blank">View More</a>
+
+        </div>
+    </tr>
+    </table>
+
+</head>
+
+{% endblock body %}
+{% block button %}
+<div>
+    <a href="{% url 'partner' %}" target="_blank"><button class="long-button">Become Partner</button></a>
+  </div>
+{% endblock button %}

@@ -1,0 +1,110 @@
+{% extends "Admin_Base.html" %}
+{% block title %}Application Details{% endblock title %}
+{% block body %}
+
+<style>
+    .status-form {
+    max-width: 600px;
+    margin: auto;
+}
+
+.radio-group {
+    margin-bottom: 20px;
+}
+
+.radio-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.remarks-group {
+    margin-top: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+</style>
+<div class="content-2">
+    <div class="recent-payments">
+        <div class="title">
+            <h2>{{ application.Applicant_Name }}</h2>
+            {% if messages %}
+            {% for message in messages %}
+                <script>
+                    Swal.fire('{{ message }}');
+                </script>
+            {% endfor %}
+        {% endif %}
+        
+        </div>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Target Form</th>
+                <th>Payment</th>
+                <th>District</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>{{ application.id }}</td>
+                <td>{{ application.Applicant_Name }}</td>
+                <td>{{ application.Mobile }}</td>
+                <td><a href="{{ application.Target_Url }}" target="_blank">Form Url</a></td>
+                <td><span class="badge text-bg-success">Success</span></td>
+                <td>{{ application.District }}</td>
+                <td>{{ application.Created_At }}</td>
+            </tr>
+        </table>
+        <form action="" method="post" class="status-form">
+            {% csrf_token %}
+            <h2>Status Update</h2>
+            <div class="radio-group">
+                <label for="yes1">Is This Application Initiated?</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="yes1" name="question1" value="yes" {% if application.Initiated %}checked{% endif %}>
+                    <label for="yes1">Yes</label>
+                    <input type="radio" id="no1" name="question1" value="no" {% if not application.Initiated %}checked{% endif %}>
+                    <label for="no1">No</label>
+                </div>
+            </div>
+            <div class="radio-group">
+                <label for="yes2">Is This Form Completed?</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="yes2" name="question2" value="yes" {% if application.Completed %}checked{% endif %}>
+                    <label for="yes2">Yes</label>
+                    <input type="radio" id="no2" name="question2" value="no" {% if not application.Completed %}checked{% endif %}>
+                    <label for="no2">No</label>
+                </div>
+            </div>
+            <div class="remarks-group">
+                <label for="remarks">Remarks:</label>
+                <textarea id="remarks" name="remarks" rows="8" cols="50" placeholder="Add any remarks here...">{{ application.Remarks }}</textarea>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock body %}

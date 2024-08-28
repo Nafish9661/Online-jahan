@@ -1,0 +1,40 @@
+{% extends "Admin_Base.html" %}
+{% block title %}All Applications{% endblock title %}
+
+{% block body %}
+<div class="content-2">
+    <div class="recent-payments">
+        <div class="title">
+            <h2>All Applications</h2>
+        </div>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Target Form</th>
+                <th>Status</th>
+                <th>District</th>
+                <th>Date</th>
+                <th>Action</th>
+           </tr>
+{% for application in applications %}
+<tr>
+    <td>{{ application.id }}</td>
+    <td>{{ application.Applicant_Name }}</td>
+    <td>{{ application.Mobile }}</td>
+    <td><a href="{{ application.Target_Url }}" target="_blank">Form Url</a></td>
+    {% if application.Payment_Recieved == True and application.Initiated == False and application.Completed == False %}
+    <td><span class="badge-payment">Accepted</span></td>
+    {% elif application.Initiated == True and application.Completed == False %}
+    <td><span class="badge-danger">Initiated</span></td>
+    {% else %}
+    <td><span class="badge-success">Finalized</span></td>
+    {% endif %}
+    <td>{{ application.District }}</td>
+    <td>{{ application.Created_At }}</td>
+    <td><a href="{% url 'userdata' application.id %}" class="btn">View</a></td>
+</tr>
+{% endfor %}
+        </table>
+{% endblock body %}

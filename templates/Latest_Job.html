@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+  .qp {
+      margin-left: 50px;
+      font-size: 30px;
+      /* margin-bottom: 200px; */
+    }
+</style>
+<html>
+{{incen.Post_Name}}
+<h1 class="qp"> {{incen.Discription | safe}}</h1>
+
+<style>
+    /* Styling for the popup */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+    }
+    /* Styling for the overlay */
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+    /* Styling for the form */
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+    .form input,
+    .form textarea {
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+    /* Styling for the close button */
+    .close-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<!-- Button to trigger the popup -->
+<button onclick="togglePopup()">Open Form</button>
+
+<!-- Popup form -->
+<div id="popup" class="popup">
+    <span class="close-btn" onclick="closePopup()">X</span>
+    <h2>Hire an Expert to Apply {{incen.Post_Name}}</h2>
+    <form class="form">
+        <input type="text" placeholder="Name" id="name">
+        <input type="tel" placeholder="Mobile No." id="mobile">
+        <textarea placeholder="Address" id="address"></textarea>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+    <p id="formStatus"></p>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="overlay"></div>
+
+<script>
+    // Function to toggle the visibility of the popup and overlay
+    function togglePopup() {
+        var popup = document.getElementById('popup');
+        var overlay = document.getElementById('overlay');
+        if (popup.style.display === 'block') {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        } else {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+    }
+
+    // Function to close the popup and overlay
+    function closePopup() {
+        var popup = document.getElementById('popup');
+        var overlay = document.getElementById('overlay');
+        popup.style.display = 'none';
+        overlay.style.display = 'none';
+    }
+
+    // Function to handle form submission
+    function submitForm() {
+        var name = document.getElementById('name').value;
+        var mobile = document.getElementById('mobile').value;
+        var address = document.getElementById('address').value;
+        // Example validation (you can add more thorough validation)
+        if (name.trim() === '' || mobile.trim() === '' || address.trim() === '') {
+            document.getElementById('formStatus').innerText = 'Please fill out all fields.';
+        } else {
+            // Process form data here (you can replace this with your desired logic)
+            document.getElementById('formStatus').innerText = 'Form submitted successfully!';
+            // For demonstration purposes, let's just close the popup after a brief delay
+            setTimeout(closePopup, 1000);
+        }
+    }
+</script>
+
+</body>
+
+
+</html>
+{% endblock body %}
